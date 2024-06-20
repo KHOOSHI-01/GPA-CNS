@@ -1,0 +1,253 @@
+#include<iostream>
+#include<fstream>
+#include <cstdio>
+#include<string.h>
+#include<math.h>
+#include<stdlib.h>
+using namespace std;
+class Decimal{
+	int N,b;
+	public:	
+		void dectob(int N, int b){
+		     if (N == 0)
+		        return;
+		     int x = N % b;
+		     N /= b;
+		     if (x < 0)
+		        N += 1; 
+		     dectob(N, b);
+		     cout<< x < 0 ? x + (b * -1) : x;
+		     return;
+		}
+		virtual void getNumber(){
+			int N,b;
+		    cout<<"Enter the Decimal to convert (N) : ";
+		    cin>>N;
+		    cout<<"Enter the base => b : ";
+		    cin>>b;
+		    if (N != 0)
+		    {
+		        dectob(N, b);
+		        cout<<endl;
+		    }
+		    else
+		        cout<<"0"<<endl;   
+		}
+		virtual int welcome(){
+				system("CLS");
+				ifstream inputFile("copy.txt"); 
+			    if (!inputFile.is_open()) { 
+			        cout << "Error opening the file!" << endl; 
+			        return 1; 
+			    } 
+			    string line; 
+			    while (getline(inputFile, line)) { 
+			        cout << line << endl; 
+			    } 
+			}
+				
+};
+class Binary : public Decimal{
+	int N,b;
+	public:
+		int bintodec(int n, int B) { 
+			int num = n; 
+			int dec_value = 0; 
+			int base = 1; 
+			int temp = num; 
+		
+			while (temp) { 
+				int last_digit = temp % 10; 
+				temp = temp / 10; 
+				dec_value += last_digit * base; 
+				base = base * 2; 
+			} 
+			dectob(dec_value,B); 
+		} 
+		void getNumber(){
+			int N,b;
+		    cout<<"Enter the Binary to convert (N) : ";
+		    cin>>N;
+		    cout<<"Enter the base => b : ";
+		    cin>>b;
+		    if (N != 0)
+		    {
+		        bintodec(N, b);
+		        cout<<endl;
+		    }
+		    else
+		        cout<<"0"<<endl;
+		}
+		virtual int welcome(){
+				system("CLS");
+				ifstream inputFile("copy1.txt"); 
+			    if (!inputFile.is_open()) { 
+			        cout << "Error opening the file!" << endl; 
+			        return 1; 
+			    } 
+			    string line; 
+			    while (getline(inputFile, line)) { 
+			        cout << line << endl; 
+			    } 
+			}
+};
+class Octal : public Decimal{
+	int N,b;
+	public:
+		int octodec(int n, int B) 
+		{ 
+			int num = n; 
+			int dec_value = 0; 
+		
+			int base = 1; 
+		
+			int temp = num; 
+			while (temp) { 
+		
+				int last_digit = temp % 10; 
+				temp = temp / 10; 
+		
+				dec_value += last_digit * base; 
+		
+				base = base * 8; 
+			} 
+		
+			dectob(dec_value,B); 
+		} 
+		void getNumber(){
+			int N,b;
+		    cout<<"Enter the Octal to convert (N) : ";
+		    cin>>N;
+		    cout<<"Enter the base => b : ";
+		    cin>>b;
+		    if (N != 0)
+		    {
+		        octodec(N, b);
+		        cout<<endl;
+		    }
+		    else
+		        cout<<"0"<<endl;
+		}
+		virtual int welcome(){
+				system("CLS");
+				ifstream inputFile("copy3.txt"); 
+			    if (!inputFile.is_open()) { 
+			        cout << "Error opening the file!" << endl; 
+			        return 1; 
+			    } 
+			    string line; 
+			    while (getline(inputFile, line)) { 
+			        cout << line << endl; 
+			    } 
+			}
+};
+class Hexadecimal : public Decimal{
+	int N,b;
+	public:
+		void hextodec(char n[], int B) { 
+		    int decimalnumber, place; 
+		    int i = 0, val, len; 
+		    decimalnumber = 0; 
+		  
+		    len = strlen(n); 
+		    len--; 
+		      
+		    while (n[i] != '\0') { 
+		          if (n[i] >= '0'
+		            && n[i] <= '9') { 
+		            val = n[i] - 48; 
+		        } 
+		        else if (n[i] >= 'a'
+		                 && n[i] <= 'f') { 
+		            val = n[i] - 97 + 10; 
+		        } 
+		        else if (n[i] >= 'A'
+		                 && n[i] <= 'F') { 
+		            val = n[i] - 65 + 10; 
+		        } 
+		        decimalnumber += val * pow(16, len); 
+		        len--; 
+		        i++; 
+		    } 
+		   dectob(decimalnumber,B); 
+		} 
+		void getNumber(){
+			int b; char N[10];
+		    cout<<"Enter the Hexadecimal to convert (N) : ";
+		    cin>>N;
+		    cout<<"Enter the base => b : ";
+		    cin>>b;
+		    if (N != 0)
+		    {
+		        hextodec(N,b);
+		        cout<<endl;
+		    }
+		    else
+		        cout<<"0"<<endl;
+		}
+		virtual int welcome(){
+				system("CLS");
+				ifstream inputFile("copy2.txt"); 
+			    if (!inputFile.is_open()) { 
+			        cout << "Error opening the file!" << endl; 
+			        return 1; 
+			    } 
+			    string line; 
+			    while (getline(inputFile, line)) { 
+			        cout << line << endl; 
+			    } 
+			}
+};
+class Choice{
+	public:
+		int menu(){
+			int ch;
+				ifstream inputFile("filename.txt"); 
+			    if (!inputFile.is_open()) { 
+			        cout << "Error opening the file!" << endl; 
+			        return 1; 
+			    } 
+			    string line; 
+			    while (getline(inputFile, line)) { 
+			        cout << line << endl; 
+			    } 
+			    inputFile.close(); 
+			cout<<"1.Decimal"<<endl;
+			cout<<"2.Binary"<<endl;
+			cout<<"3.Octal"<<endl;
+			cout<<"4.Hexadecimal"<<endl;
+			cout<<"5.Exit"<<endl;
+			cout<<"Enter Choice : "; cin>>ch;
+			return ch;
+		}
+}; 		
+
+int main(){
+	Choice c;Decimal d;Octal o; Hexadecimal h; Binary b;
+	int ch,ans;
+	ch=c.menu();
+	switch(ch){
+		case 1:
+			d.welcome();
+			d.getNumber();
+			break;
+		case 2:
+			b.welcome();
+			b.getNumber();
+			break;
+		case 3:
+			o.welcome();
+			o.getNumber();
+			break;
+		case 4:
+			h.welcome();
+			h.getNumber();
+			break;
+		case 5:
+			cout<<endl<<"Thank You...(^_^)";
+			return 0;
+		default:
+			cout<<"Invalid Choice ...(-_-)";					
+	}
+	return 0;
+}
